@@ -1,0 +1,169 @@
+// Namespace: CriticalOps.Gameplay
+public class CharacterModel : MonoBehaviour, IRenderable, IPingRenderable // TypeDefIndex: 4003
+{
+	// Fields
+	private const float Lod0Size = 0,25;
+	[SerializeField]
+	private SkinnedMeshRenderer m_renderer; // 0xC
+	[SerializeField]
+	private Animator m_animator; // 0x10
+	[SerializeField]
+	private Transform m_root; // 0x14
+	[SerializeField]
+	private Transform m_ragdollRoot; // 0x18
+	[SerializeField]
+	private RaycastShadow[] m_shadows; // 0x1C
+	[SerializeField]
+	private Material m_shadowMaterial; // 0x20
+	[SerializeField]
+	private Mesh m_shadowMesh; // 0x24
+	private Handle<RenderableData> m_renderHandle; // 0x28
+	private MaterialPropertyBlock m_propertyBlock; // 0x2C
+	private SphericalHarmonicsL2 m_cachedProbeLighting; // 0x30
+	private CharacterSkinVariant m_currentSkinVariant; // 0x9C
+	private readonly FasterList<IIDAssetHandle<CharacterAttachmentDef>> m_attachments; // 0xA0
+	private CharacterModel.BoneReferences[] m_bones; // 0xA4
+	private Coroutine m_ragdollDeathRoutine; // 0xA8
+	private WaitForSeconds m_ragdollWait; // 0xAC
+	[CompilerGenerated]
+	private static CharacterModel.DelayedPlantingAudioHandler DelayedPlantingAudio; // 0x0
+	[CompilerGenerated]
+	private bool <IsRagdoll>k__BackingField; // 0xB0
+	[CompilerGenerated]
+	private bool <IsInvulnerable>k__BackingField; // 0xB1
+	[CompilerGenerated]
+	private Color <HighLightColor>k__BackingField; // 0xB4
+	[CompilerGenerated]
+	private EGID <SelectedWeapon>k__BackingField; // 0xC8
+	[CompilerGenerated]
+	private readonly FasterList<EGID> <HolsteredWeapons>k__BackingField; // 0xD0
+
+	// Methods
+
+	[CompilerGenerated]
+	// RVA: 0x19117E4 Offset: 0x19117E4 VA: 0x19117E4
+	public static void add_DelayedPlantingAudio(CharacterModel.DelayedPlantingAudioHandler value) { }
+
+	[CompilerGenerated]
+	// RVA: 0x19118B0 Offset: 0x19118B0 VA: 0x19118B0
+	public static void remove_DelayedPlantingAudio(CharacterModel.DelayedPlantingAudioHandler value) { }
+
+	[CompilerGenerated]
+	// RVA: 0x191197C Offset: 0x191197C VA: 0x191197C
+	public bool get_IsRagdoll() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1911984 Offset: 0x1911984 VA: 0x1911984
+	private void set_IsRagdoll(bool value) { }
+
+	[CompilerGenerated]
+	// RVA: 0x191198C Offset: 0x191198C VA: 0x191198C
+	public bool get_IsInvulnerable() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1911994 Offset: 0x1911994 VA: 0x1911994
+	public void set_IsInvulnerable(bool value) { }
+
+	[CompilerGenerated]
+	// RVA: 0x191199C Offset: 0x191199C VA: 0x191199C
+	public Color get_HighLightColor() { }
+
+	[CompilerGenerated]
+	// RVA: 0x19119AC Offset: 0x19119AC VA: 0x19119AC
+	public void set_HighLightColor(Color value) { }
+
+	// RVA: 0x19119BC Offset: 0x19119BC VA: 0x19119BC
+	public SkinnedMeshRenderer get_RendererLod0() { }
+
+	[CompilerGenerated]
+	// RVA: 0x19119C4 Offset: 0x19119C4 VA: 0x19119C4
+	public EGID get_SelectedWeapon() { }
+
+	[CompilerGenerated]
+	// RVA: 0x19119D0 Offset: 0x19119D0 VA: 0x19119D0
+	private void set_SelectedWeapon(EGID value) { }
+
+	[CompilerGenerated]
+	// RVA: 0x19119E0 Offset: 0x19119E0 VA: 0x19119E0
+	public FasterList<EGID> get_HolsteredWeapons() { }
+
+	// RVA: 0x19119E8 Offset: 0x19119E8 VA: 0x19119E8
+	private bool get_IsVisible() { }
+
+	// RVA: 0x1911B6C Offset: 0x1911B6C VA: 0x1911B6C Slot: 9
+	public bool get_PingIsVisible() { }
+
+	// RVA: 0x1911C38 Offset: 0x1911C38 VA: 0x1911C38 Slot: 10
+	private Vector3 CriticalOps.UI.Indicators.IPingRenderable.get_PingPosition() { }
+
+	// RVA: 0x1911B80 Offset: 0x1911B80 VA: 0x1911B80
+	public bool get_IsCharacterVisible() { }
+
+	// RVA: 0x1911C88 Offset: 0x1911C88 VA: 0x1911C88
+	public Transform GetBone(CharacterModel.BoneSelection selection, CharacterModel.Bone bone) { }
+
+	// RVA: 0x1911D28 Offset: 0x1911D28 VA: 0x1911D28
+	public void GetWeaponBoneMatrix(int modelAssetId, int transformIndex, out Matrix4x4 matrix, out Transform parent) { }
+
+	// RVA: 0x1911E20 Offset: 0x1911E20 VA: 0x1911E20
+	public void CheckCharacterVisibility(out bool visibility) { }
+
+	// RVA: 0x1911EE4 Offset: 0x1911EE4 VA: 0x1911EE4
+	public void SetWeapons(EGID selectedWeapon, IEnumerable<EGID> allWeapons) { }
+
+	// RVA: 0x19122F8 Offset: 0x19122F8 VA: 0x19122F8
+	public void SetAttachments(string[] attachmentReferences) { }
+
+	// RVA: 0x19124C8 Offset: 0x19124C8 VA: 0x19124C8
+	public void SetSkin(CharacterSkinVariant variant) { }
+
+	// RVA: 0x19124D0 Offset: 0x19124D0 VA: 0x19124D0
+	public void Init() { }
+
+	// RVA: 0x191324C Offset: 0x191324C VA: 0x191324C
+	public void Hide() { }
+
+	// RVA: 0x19132F0 Offset: 0x19132F0 VA: 0x19132F0
+	public void ShowModel() { }
+
+	[ContextMenu("Set Ragdoll")]
+	// RVA: 0x1913600 Offset: 0x1913600 VA: 0x1913600
+	public void ShowRagdoll(Rigidbody hitBody, Vector3 force) { }
+
+	// RVA: 0x1913FB0 Offset: 0x1913FB0 VA: 0x1913FB0 Slot: 8
+	private void CriticalOps.UI.Indicators.IPingRenderable.DrawPingOverlay(IndicatorRenderer renderer, Camera targetCamera, in Color color) { }
+
+	// RVA: 0x1914170 Offset: 0x1914170 VA: 0x1914170 Slot: 4
+	private void CFRenderLib.Unity.Interfaces.IRenderable.PreCull(ref RenderableData data) { }
+
+	// RVA: 0x19142F0 Offset: 0x19142F0 VA: 0x19142F0 Slot: 5
+	private void CFRenderLib.Unity.Interfaces.IRenderable.Render(IRenderer renderer, ref RenderableData data) { }
+
+	// RVA: 0x191528C Offset: 0x191528C VA: 0x191528C Slot: 6
+	private void CFRenderLib.Unity.Interfaces.IRenderable.BecameVisible(ref RenderableData data) { }
+
+	// RVA: 0x1915374 Offset: 0x1915374 VA: 0x1915374 Slot: 7
+	private void CFRenderLib.Unity.Interfaces.IRenderable.BecameInvisible(ref RenderableData data) { }
+
+	// RVA: 0x191350C Offset: 0x191350C VA: 0x191350C
+	private void UpdateRenderers() { }
+
+	// RVA: 0x19132B4 Offset: 0x19132B4 VA: 0x19132B4
+	private void StopRagdollRoutine() { }
+
+	[IteratorStateMachine(typeof(CharacterModel.<RagdollRoutine>d__68))]
+	// RVA: 0x1913EA4 Offset: 0x1913EA4 VA: 0x1913EA4
+	private IEnumerator RagdollRoutine(Rigidbody hitBody, Vector3 force) { }
+
+	// RVA: 0x1915478 Offset: 0x1915478 VA: 0x1915478
+	private void BombPlantingStarted() { }
+
+	// RVA: 0x191553C Offset: 0x191553C VA: 0x191553C
+	private void OnEnable() { }
+
+	// RVA: 0x1915604 Offset: 0x1915604 VA: 0x1915604
+	private void OnDisable() { }
+
+	// RVA: 0x1915704 Offset: 0x1915704 VA: 0x1915704
+	public void .ctor() { }
+}
