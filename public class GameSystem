@@ -1,0 +1,319 @@
+// Namespace: CriticalOps.Gameplay
+public class GameSystem // TypeDefIndex: 4143
+{
+	// Fields
+	private const int CharacterHitBoxCount = 15;
+	private const int MaxCharacterHitCount = 20;
+	private static bool sm_staticInitialized; // 0x0
+	protected GameplayAssets m_assets; // 0x8
+	private readonly CharacterHitTest[] m_characterHitBuffer; // 0xC
+	private readonly GrenadeType[] m_grenadeTypes; // 0x10
+	private readonly Dictionary<PhysicMaterial, MaterialDef> m_materialDefs; // 0x14
+	private readonly FasterDictionary<int, Character> m_playerCharacters; // 0x18
+	private readonly Character[] m_potentialHitCharacters; // 0x1C
+	private readonly RaycastHit[] m_wallHitBuffer; // 0x20
+	private readonly FasterDictionary<int, EGID> m_weaponIdMap; // 0x24
+	private Coroutine m_inputCheckCoroutine; // 0x28
+	private Queue<Character> m_localCharacterPool; // 0x2C
+	private Queue<Character> m_remoteCharacterPool; // 0x30
+	private readonly WaitForSeconds m_waitAfkCheck; // 0x34
+	protected IGameplayDependencies m_dependencies; // 0x38
+	protected InputSystem m_inputSystem; // 0x3C
+	protected GameplayModule m_game; // 0x40
+	protected FasterDictionary<int, Player> m_players; // 0x44
+	protected List<Player> m_playersList; // 0x48
+	private readonly ArmorHandler m_armorHandler; // 0x4C
+	[CompilerGenerated]
+	private Action<RaycastHit> EvtHitWall; // 0x50
+	[CompilerGenerated]
+	private readonly List<Character> <AllCharacters>k__BackingField; // 0x54
+	[CompilerGenerated]
+	private float <DroppedWeaponDestroyTime>k__BackingField; // 0x58
+	[CompilerGenerated]
+	private readonly RoomProperties <RoomProperties>k__BackingField; // 0x5C
+	[CompilerGenerated]
+	private readonly ShootData <ShootData>k__BackingField; // 0x60
+
+	// Methods
+
+	[CompilerGenerated]
+	// RVA: 0xDD2484 Offset: 0xDD2484 VA: 0xDD2484
+	public void add_EvtHitWall(Action<RaycastHit> value) { }
+
+	[CompilerGenerated]
+	// RVA: 0xDD254C Offset: 0xDD254C VA: 0xDD254C
+	public void remove_EvtHitWall(Action<RaycastHit> value) { }
+
+	[CompilerGenerated]
+	// RVA: 0xDD2614 Offset: 0xDD2614 VA: 0xDD2614
+	public List<Character> get_AllCharacters() { }
+
+	// RVA: 0xDD261C Offset: 0xDD261C VA: 0xDD261C
+	public List<Player> get_AllPlayers() { }
+
+	// RVA: 0xDD2624 Offset: 0xDD2624 VA: 0xDD2624
+	public int get_CharacterCount() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDD267C Offset: 0xDD267C VA: 0xDD267C
+	public float get_DroppedWeaponDestroyTime() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDD2684 Offset: 0xDD2684 VA: 0xDD2684
+	public void set_DroppedWeaponDestroyTime(float value) { }
+
+	// RVA: 0xDC4F04 Offset: 0xDC4F04 VA: 0xDC4F04
+	public LocalCharacter get_LocalCharacter() { }
+
+	// RVA: 0xDC1578 Offset: 0xDC1578 VA: 0xDC1578
+	public int get_LocalID() { }
+
+	// RVA: 0xDC0D34 Offset: 0xDC0D34 VA: 0xDC0D34
+	public Player get_LocalPlayer() { }
+
+	// RVA: 0xDD2700 Offset: 0xDD2700 VA: 0xDD2700
+	public int get_PlayerCount() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDD2758 Offset: 0xDD2758 VA: 0xDD2758
+	public RoomProperties get_RoomProperties() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDD2760 Offset: 0xDD2760 VA: 0xDD2760
+	public ShootData get_ShootData() { }
+
+	// RVA: 0xDD2768 Offset: 0xDD2768 VA: 0xDD2768
+	public void .ctor(GameplayAssets assets, IGameplayDependencies dependencies, InputSystem inputSystem, GameplayModule gameplayModule) { }
+
+	// RVA: 0xDD3100 Offset: 0xDD3100 VA: 0xDD3100
+	public void Init() { }
+
+	// RVA: 0xDD3B10 Offset: 0xDD3B10 VA: 0xDD3B10
+	public void Destroy() { }
+
+	// RVA: 0xDD4484 Offset: 0xDD4484 VA: 0xDD4484
+	public void AddPlayer(Player player) { }
+
+	// RVA: 0xDD4680 Offset: 0xDD4680 VA: 0xDD4680
+	public int CalculateGrenadeExposure(Transform eye, Vector3 grenadePos, float radius, float maxDist, WallPenetration wallPenetration, LayerMask layerMask, bool isStun = False) { }
+
+	// RVA: 0xDD268C Offset: 0xDD268C VA: 0xDD268C
+	public bool TryGetCharacter(int id, out Character character) { }
+
+	// RVA: 0xDD0B44 Offset: 0xDD0B44 VA: 0xDD0B44
+	public bool CharacterExists(int id) { }
+
+	// RVA: 0xDD3FFC Offset: 0xDD3FFC VA: 0xDD3FFC
+	public void ClearGameState(bool clearPlayers = True) { }
+
+	// RVA: 0xDD5D5C Offset: 0xDD5D5C VA: 0xDD5D5C
+	public Character CreateCharacter(int id, Vector3 position, Quaternion rotation, bool local) { }
+
+	// RVA: 0xDD6DBC Offset: 0xDD6DBC VA: 0xDD6DBC
+	public GrenadeInstance CreateGrenade(int grenadeID, EGID instanceEgid, int throwerId, Vector3 position, Vector3 velocity, bool useRaycast, bool isProxy) { }
+
+	// RVA: 0xDD7CB8 Offset: 0xDD7CB8 VA: 0xDD7CB8 Slot: 4
+	public virtual Player CreatePlayer(int playerID) { }
+
+	// RVA: 0xDD7D2C Offset: 0xDD7D2C VA: 0xDD7D2C Slot: 5
+	public virtual Player CreatePlayer(int playerID, string userName, string clanTag, UserType userType, int rank, EquippedItemData[] weapons, EquippedItemData[] animationOverrideClips, EquippedItemData[] gloveSkins, bool showTag, int[] casualMMRs, int invalidRequestCount, int playerLevel, int emblemId) { }
+
+	// RVA: 0xDD7E08 Offset: 0xDD7E08 VA: 0xDD7E08
+	public EGID CreateWeapon(int weaponID, string ownerName, int weaponDefID, int weaponSkinID) { }
+
+	// RVA: 0xDD388C Offset: 0xDD388C VA: 0xDD388C
+	private void ValidateEnvironmentColliders() { }
+
+	// RVA: 0xDD8E78 Offset: 0xDD8E78 VA: 0xDD8E78
+	public void Update(float deltaTime) { }
+
+	// RVA: 0xDD54DC Offset: 0xDD54DC VA: 0xDD54DC
+	public void DestroyCharacter(int id, bool teamflip = False) { }
+
+	// RVA: 0xDD9CE4 Offset: 0xDD9CE4 VA: 0xDD9CE4
+	public void DestroyCharacter(Character character, bool teamflip = False) { }
+
+	// RVA: 0xDD9584 Offset: 0xDD9584 VA: 0xDD9584
+	public void DestroyWeapon(int weaponID) { }
+
+	// RVA: 0xDD5248 Offset: 0xDD5248 VA: 0xDD5248
+	public void DestroyWeapons() { }
+
+	// RVA: 0xDD58CC Offset: 0xDD58CC VA: 0xDD58CC
+	public void DisableAllGrenades() { }
+
+	// RVA: 0xDDA120 Offset: 0xDDA120 VA: 0xDDA120
+	public void DisableGrenade(int grenadeID, bool isProxy) { }
+
+	// RVA: 0xDD9FEC Offset: 0xDD9FEC VA: 0xDD9FEC
+	public void DisableWeaponOnGround(int weaponID) { }
+
+	// RVA: 0xDDA600 Offset: 0xDDA600 VA: 0xDDA600
+	public void DisableWeaponOnGround(EGID weapon) { }
+
+	// RVA: 0xDDA7F0 Offset: 0xDDA7F0 VA: 0xDDA7F0
+	public IWeaponOnGroundComponent DropWeapon(int characterID, EGID instanceEgid, Vector3 position, Vector3 velocity, Quaternion rotation, Vector3 angularVelocity, bool thrown) { }
+
+	// RVA: -1 Offset: -1
+	public T GetCharacter<T>(int id) { }
+	/* GenericInstMethod :
+	|
+	|-RVA: 0xA56D20 Offset: 0xA56D20 VA: 0xA56D20
+	|-GameSystem.GetCharacter<object>
+	*/
+
+	// RVA: 0xDC3ADC Offset: 0xDC3ADC VA: 0xDC3ADC
+	public Character GetCharacter(int id) { }
+
+	// RVA: 0xDDABF4 Offset: 0xDDABF4 VA: 0xDDABF4
+	public int GetCharacterID(Character character) { }
+
+	// RVA: 0xDDAEB4 Offset: 0xDDAEB4 VA: 0xDDAEB4
+	public GrenadeInstance GetGrenade(int grenadeID, bool isProxy) { }
+
+	// RVA: 0xDDB0D0 Offset: 0xDDB0D0 VA: 0xDDB0D0
+	public void GetMaterialForCollider(Collider c, out MaterialDef material) { }
+
+	// RVA: 0xDDB23C Offset: 0xDDB23C VA: 0xDDB23C
+	public int GetOpposingTeamSize(int teamIndex) { }
+
+	// RVA: 0xDD6B84 Offset: 0xDD6B84 VA: 0xDD6B84
+	public Player GetPlayer(int playerId) { }
+
+	// RVA: 0xDDB518 Offset: 0xDDB518 VA: 0xDDB518
+	public EGID GetWeapon(int weaponID) { }
+
+	// RVA: 0xDDB618 Offset: 0xDDB618 VA: 0xDDB618
+	public int FindWeaponID(EGID weaponEgid) { }
+
+	// RVA: 0xDDA0B4 Offset: 0xDDA0B4 VA: 0xDDA0B4
+	public bool WeaponExists(int weaponID) { }
+
+	// RVA: 0xDDA398 Offset: 0xDDA398 VA: 0xDDA398
+	public IWeaponOnGroundComponent GetWeaponOnGround(int weaponId) { }
+
+	// RVA: 0xDDB828 Offset: 0xDDB828 VA: 0xDDB828
+	public bool GrenadeExists(int grenadeID, bool isProxy) { }
+
+	// RVA: 0xDDBA38 Offset: 0xDDBA38 VA: 0xDDBA38
+	public bool IsDead(Player player) { }
+
+	// RVA: 0xDDBB20 Offset: 0xDDBB20 VA: 0xDDBB20
+	public void KillCharacter(int id, int killerID, int shortTimeKillCount, int assistID, EGID killerWeapon, EGID victimWeapon, int assistWeaponDefId, BodyPart bodyPart, Vector3 deathForce, Vector3 lastPosition) { }
+
+	// RVA: 0xDD0BB0 Offset: 0xDD0BB0 VA: 0xDD0BB0
+	public bool TryGetPlayer(int playerId, out Player player) { }
+
+	// RVA: 0xDD554C Offset: 0xDD554C VA: 0xDD554C
+	public void RemovePlayer(int playerId) { }
+
+	// RVA: 0xDDBD60 Offset: 0xDDBD60 VA: 0xDDBD60
+	public void SpotCharacter(Character target) { }
+
+	// RVA: 0xDDBF98 Offset: 0xDDBF98 VA: 0xDDBF98
+	public ShootData TraceShot(Character shooter, Ray shootRay) { }
+
+	// RVA: 0xDDCDE8 Offset: 0xDDCDE8 VA: 0xDDCDE8
+	private bool GrenadeHitCharacter(GrenadeInstance grenadeInstance, float maxDistance) { }
+
+	// RVA: 0xDDD4C0 Offset: 0xDDD4C0 VA: 0xDDD4C0 Slot: 6
+	protected virtual RemoteCharacter AddRemoteCharacter(GameObject go) { }
+
+	// RVA: 0xDDD520 Offset: 0xDDD520 VA: 0xDDD520 Slot: 7
+	protected virtual void OnGrenadeExploded(in EventGrenadeExploded eventData) { }
+
+	// RVA: 0xDD9E58 Offset: 0xDD9E58 VA: 0xDD9E58
+	private void FreeCharacterObject(Character character) { }
+
+	// RVA: 0xDD6B14 Offset: 0xDD6B14 VA: 0xDD6B14
+	private Character GetFreeCharacterObject(int id, bool local) { }
+
+	// RVA: 0xDDDD34 Offset: 0xDDDD34 VA: 0xDDDD34
+	private void ProcessWallHit(RaycastHit hit, WallPenetration wallPenetration, ref int damagePercent, out MaterialDef hitMaterial) { }
+
+	// RVA: 0xDDDFA0 Offset: 0xDDDFA0 VA: 0xDDDFA0
+	private int GetPotentialCharHitCount(Character shooter, Ray ray) { }
+
+	// RVA: 0xDDE1E4 Offset: 0xDDE1E4 VA: 0xDDE1E4
+	public bool IsCharacterHitByGrenade(GrenadeInstance grenadeInstance, float maxDistance, ref GameSystem.GrenadeFuncReturnType returnType) { }
+
+	// RVA: 0xDDD1BC Offset: 0xDDD1BC VA: 0xDDD1BC
+	private int GetRayToEnemyCharacterHitCount(int allyTeamIndex, Ray ray, float maxDistance) { }
+
+	// RVA: 0xDDC280 Offset: 0xDDC280 VA: 0xDDC280
+	private void MeleeHit(Character shooter, Ray ray) { }
+
+	// RVA: 0xDD32B0 Offset: 0xDD32B0 VA: 0xDD32B0
+	private void PopulateCharactersPool() { }
+
+	[IteratorStateMachine(typeof(GameSystem.<ProcessPlayerInput>d__103))]
+	// RVA: 0xDD3A74 Offset: 0xDD3A74 VA: 0xDD3A74
+	private IEnumerator ProcessPlayerInput() { }
+
+	// RVA: 0xDDE3EC Offset: 0xDDE3EC VA: 0xDDE3EC
+	private void ProcessHitBuffers(int wallHitCount, int characterHitCount, BurstData burstData) { }
+
+	// RVA: 0xDDEE34 Offset: 0xDDEE34 VA: 0xDDEE34
+	private void RaycastCharacter(Character character, Ray ray, ref int hitIndex) { }
+
+	// RVA: 0xDDF184 Offset: 0xDDF184 VA: 0xDDF184
+	private void UpdateCharacterHitBuffer(Character character, Ray ray, ref int hitIndex) { }
+
+	// RVA: 0xDDF624 Offset: 0xDDF624 VA: 0xDDF624
+	private void RaycastCharacters(Character shooter, Ray ray) { }
+
+	// RVA: 0xDDEBF4 Offset: 0xDDEBF4 VA: 0xDDEBF4
+	private void UpdateWallHit(RaycastHit hit, WallPenetration wallPenetration, ref int damagePercent, out MaterialDef hitMaterial) { }
+
+	// RVA: 0xDE0038 Offset: 0xDE0038 VA: 0xDE0038
+	public bool IsRoomOwner(int playerID = -1) { }
+
+	// RVA: 0xDD1DE8 Offset: 0xDD1DE8 VA: 0xDD1DE8
+	public FactionProperties GetFactionProperties(int id) { }
+
+	// RVA: 0xDE01C4 Offset: 0xDE01C4 VA: 0xDE01C4
+	public FactionProperties[] GetAllFactionProperties() { }
+
+	// RVA: 0xDE027C Offset: 0xDE027C VA: 0xDE027C
+	public void CreateArmor(int armorId, int armorDefId) { }
+
+	// RVA: 0xDE02B0 Offset: 0xDE02B0 VA: 0xDE02B0
+	public void DestroyArmor(int armorId) { }
+
+	// RVA: 0xDE02DC Offset: 0xDE02DC VA: 0xDE02DC
+	public Armor GetArmor(int armorId) { }
+
+	// RVA: 0xDE0308 Offset: 0xDE0308 VA: 0xDE0308
+	public void GiveArmorToCharacter(int armorId, int characterId) { }
+
+	// RVA: 0xDE0390 Offset: 0xDE0390 VA: 0xDE0390
+	public void RemoveArmorFromCharacter(int armorId, int characterId) { }
+
+	// RVA: 0xDE0418 Offset: 0xDE0418 VA: 0xDE0418
+	public void UpdateArmorAmount(int armorId, int amount) { }
+
+	// RVA: 0xDD4DF0 Offset: 0xDD4DF0 VA: 0xDD4DF0
+	private int RaycastGrenade(Vector3 eye, Vector3 grenadePos, Vector3 grenadeOffset, float maxDist, WallPenetration wallPenetration, LayerMask layerMask, bool smokeReduction, ref GameSystem.GrenadeFuncReturnType returnType) { }
+
+	// RVA: 0xDDFB94 Offset: 0xDDFB94 VA: 0xDDFB94
+	private int RaycastPotentialHitCharacters(Ray ray, int potentialCharHitCount) { }
+
+	// RVA: 0xDDFC9C Offset: 0xDDFC9C VA: 0xDDFC9C
+	private bool CheckWallHits(Ray ray, float maxRange, out int wallHitCount) { }
+
+	// RVA: 0xDDCDAC Offset: 0xDDCDAC VA: 0xDDCDAC
+	private void DoShootRaycasting(Ray ray, Character shooter) { }
+
+	// RVA: 0xDD6C98 Offset: 0xDD6C98 VA: 0xDD6C98
+	private void UpdateCollider(Character c) { }
+
+	// RVA: 0xDE044C Offset: 0xDE044C VA: 0xDE044C
+	private void SmokeDensityReduction(Vector3 origin, Vector3 raydir, ref int damagePercent) { }
+
+	// RVA: 0xDE0944 Offset: 0xDE0944 VA: 0xDE0944
+	private float SphereIntersectionDensity(Vector3 origin, Vector3 raydir, Vector3 sphereCenter, float sphereRadius) { }
+
+	[CompilerGenerated]
+	// RVA: 0xDDF044 Offset: 0xDDF044 VA: 0xDDF044
+	internal static void <RaycastCharacter>g__CheckRadiusModifier|105_0(ref float dummyA, ref float dummyB) { }
+}
