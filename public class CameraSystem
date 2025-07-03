@@ -1,0 +1,239 @@
+// Namespace: CriticalOps.Gameplay
+public class CameraSystem : IRenderable // TypeDefIndex: 4134
+{
+	// Fields
+	private readonly CameraEffects m_cameraEffects; // 0x8
+	private readonly CameraOverlayColor m_cameraOverlay; // 0xC
+	private readonly CameraSettings m_cameraSettings; // 0x10
+	private readonly ManualCoroutineStateMachine<CameraState> m_cameraState; // 0x14
+	private readonly Transform m_cameraTransform; // 0x18
+	private readonly WeaponSettings m_weaponSettings; // 0x1C
+	private readonly EffectSettings m_effectSettings; // 0x20
+	protected Character m_viewingCharacter; // 0x24
+	private CharacterModel m_deathCharacterModel; // 0x28
+	private Camera m_fovCamera; // 0x2C
+	private Spectator m_spectator; // 0x30
+	private int m_deathVictimID; // 0x34
+	private int m_currentTeamIndex; // 0x38
+	private CameraState m_lastCameraState; // 0x3C
+	private Quaternion m_cameraOffsetRotation; // 0x40
+	private float m_cameraOffsetPhase; // 0x50
+	private float m_cameraOffsetPhaseMax; // 0x54
+	private float m_horizontalFieldOfView; // 0x58
+	private float m_viewModelFieldOfView; // 0x5C
+	private float m_victoryStateHorizontalFov; // 0x60
+	private Handle<RenderableData> m_renderHandle; // 0x64
+	private WaitForSeconds m_waitCameraShake; // 0x68
+	protected Camera m_camera; // 0x6C
+	protected GameSystem m_gameSystem; // 0x70
+	protected InputSystem m_inputSystem; // 0x74
+	protected CameraState m_targetState; // 0x78
+	[CompilerGenerated]
+	private static Matrix4x4 <FPVViewMatrix>k__BackingField; // 0x0
+	[CompilerGenerated]
+	private static Matrix4x4 <FPInvViewMatrix>k__BackingField; // 0x40
+	[CompilerGenerated]
+	private static Matrix4x4 <FPVCorrectionMatrix>k__BackingField; // 0x80
+	[CompilerGenerated]
+	private bool <CameraStateLocked>k__BackingField; // 0x7C
+	[CompilerGenerated]
+	private readonly CinematicCamera <Cinematic>k__BackingField; // 0x80
+	[CompilerGenerated]
+	private ez7p00h0d<float> <FieldOfView>k__BackingField; // 0x84
+
+	// Methods
+
+	// RVA: 0xDBF4C0 Offset: 0xDBF4C0 VA: 0xDBF4C0
+	public void .ctor(GameplayAssets assets, GameSystem gameSystem, InputSystem inputSystem) { }
+
+	// RVA: 0xDC0508 Offset: 0xDC0508 VA: 0xDC0508
+	public Camera get_ActiveCamera() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC0510 Offset: 0xDC0510 VA: 0xDC0510
+	public static Matrix4x4 get_FPVViewMatrix() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC0598 Offset: 0xDC0598 VA: 0xDC0598
+	private static void set_FPVViewMatrix(Matrix4x4 value) { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC068C Offset: 0xDC068C VA: 0xDC068C
+	public static Matrix4x4 get_FPInvViewMatrix() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC0718 Offset: 0xDC0718 VA: 0xDC0718
+	private static void set_FPInvViewMatrix(Matrix4x4 value) { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC0810 Offset: 0xDC0810 VA: 0xDC0810
+	public static Matrix4x4 get_FPVCorrectionMatrix() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC089C Offset: 0xDC089C VA: 0xDC089C
+	private static void set_FPVCorrectionMatrix(Matrix4x4 value) { }
+
+	// RVA: 0xDC0994 Offset: 0xDC0994 VA: 0xDC0994
+	public ez7p00h0d<bool> get_CameraHasChangedSinceLastFoVUpdate() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC0AB8 Offset: 0xDC0AB8 VA: 0xDC0AB8
+	public bool get_CameraStateLocked() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC0AC0 Offset: 0xDC0AC0 VA: 0xDC0AC0
+	public void set_CameraStateLocked(bool value) { }
+
+	// RVA: 0xDC0AC8 Offset: 0xDC0AC8 VA: 0xDC0AC8
+	private bool get_CanProcessSpectatingControls() { }
+
+	// RVA: 0xDC0E6C Offset: 0xDC0E6C VA: 0xDC0E6C
+	public bool get_IsSpectatorCamera() { }
+
+	// RVA: 0xDC0EFC Offset: 0xDC0EFC VA: 0xDC0EFC
+	public bool get_CanSwitchCharacter() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC1478 Offset: 0xDC1478 VA: 0xDC1478
+	public CinematicCamera get_Cinematic() { }
+
+	// RVA: 0xDC1480 Offset: 0xDC1480 VA: 0xDC1480
+	public CameraState get_CurrentCameraState() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC14D8 Offset: 0xDC14D8 VA: 0xDC14D8
+	public ez7p00h0d<float> get_FieldOfView() { }
+
+	[CompilerGenerated]
+	// RVA: 0xDC14EC Offset: 0xDC14EC VA: 0xDC14EC
+	private void set_FieldOfView(ez7p00h0d<float> value) { }
+
+	// RVA: 0xDC14F8 Offset: 0xDC14F8 VA: 0xDC14F8
+	public Character get_FollowedCharacter() { }
+
+	// RVA: 0xDC0BD8 Offset: 0xDC0BD8 VA: 0xDC0BD8
+	public bool get_IsViewLocalCharacter() { }
+
+	// RVA: 0xDC1630 Offset: 0xDC1630 VA: 0xDC1630
+	public Vector3 GetViewAdjustedPos(WeaponViewModel viewModel) { }
+
+	// RVA: 0xDC1698 Offset: 0xDC1698 VA: 0xDC1698
+	public ez7p00h0d<int> FetchFollowedCharacterTeamIndex() { }
+
+	// RVA: 0xDC187C Offset: 0xDC187C VA: 0xDC187C Slot: 8
+	public virtual void Destroy() { }
+
+	// RVA: 0xDC1F94 Offset: 0xDC1F94 VA: 0xDC1F94
+	public void Refresh() { }
+
+	// RVA: 0xDC2440 Offset: 0xDC2440 VA: 0xDC2440
+	public void SetCinematicCamera(string cinematicName) { }
+
+	// RVA: 0xDC24A8 Offset: 0xDC24A8 VA: 0xDC24A8
+	private void OnPreRender(Camera camera) { }
+
+	// RVA: 0xDC025C Offset: 0xDC025C VA: 0xDC025C
+	protected void ChangeState(CameraState newState, bool targetState, Character followCharacter) { }
+
+	[IteratorStateMachine(typeof(CameraSystem.<CinematicCamera>d__73))]
+	// RVA: 0xDC314C Offset: 0xDC314C VA: 0xDC314C
+	private IEnumerator CinematicCamera() { }
+
+	[IteratorStateMachine(typeof(CameraSystem.<DeathCamera>d__74))]
+	// RVA: 0xDC3210 Offset: 0xDC3210 VA: 0xDC3210
+	private IEnumerator DeathCamera() { }
+
+	[IteratorStateMachine(typeof(CameraSystem.<FirstPersonCamera>d__75))]
+	// RVA: 0xDC32D4 Offset: 0xDC32D4 VA: 0xDC32D4
+	private IEnumerator FirstPersonCamera() { }
+
+	[IteratorStateMachine(typeof(CameraSystem.<FreeLookCamera>d__76))]
+	// RVA: 0xDC3398 Offset: 0xDC3398 VA: 0xDC3398
+	private IEnumerator FreeLookCamera() { }
+
+	[IteratorStateMachine(typeof(CameraSystem.<ThirdPersonCamera>d__77))]
+	// RVA: 0xDC345C Offset: 0xDC345C VA: 0xDC345C
+	private IEnumerator ThirdPersonCamera() { }
+
+	[IteratorStateMachine(typeof(CameraSystem.<UpdateCameraShake>d__78))]
+	// RVA: 0xDC3520 Offset: 0xDC3520 VA: 0xDC3520
+	private IEnumerator UpdateCameraShake(float amount) { }
+
+	// RVA: 0xDC0FF8 Offset: 0xDC0FF8 VA: 0xDC0FF8
+	protected int FindNextCharacterID(int prevID = -1, int direction = 1) { }
+
+	// RVA: 0xDC3618 Offset: 0xDC3618 VA: 0xDC3618
+	public void SwitchToNextCameraPosition() { }
+
+	// RVA: 0xDC383C Offset: 0xDC383C VA: 0xDC383C
+	public void SwitchToPrevCameraPosition() { }
+
+	// RVA: 0xDC3934 Offset: 0xDC3934 VA: 0xDC3934
+	public void TryChangeSpectatorMode() { }
+
+	// RVA: 0xDC2284 Offset: 0xDC2284 VA: 0xDC2284
+	private void HandleSpectatingControls() { }
+
+	// RVA: 0xDC3B38 Offset: 0xDC3B38 VA: 0xDC3B38
+	private void SetHorizontalFieldOfView(float horizontalFoV) { }
+
+	// RVA: 0xDC3CD4 Offset: 0xDC3CD4 VA: 0xDC3CD4
+	private void GetCameraFieldParameter(IWeaponDefComponent weaponDef, out float worldFov, out float viewFov, out float updateSpeed) { }
+
+	// RVA: 0xDC3C34 Offset: 0xDC3C34 VA: 0xDC3C34
+	private void SetVerticalFieldOfView(float verticalFoV) { }
+
+	// RVA: 0xDC3710 Offset: 0xDC3710 VA: 0xDC3710
+	private void SpectateNext(int prevID, int direction) { }
+
+	// RVA: 0xDC2008 Offset: 0xDC2008 VA: 0xDC2008
+	private void UpdateCameraEffects() { }
+
+	// RVA: 0xDC24B0 Offset: 0xDC24B0 VA: 0xDC24B0
+	public static void UpdateFirstPersonVPMatrix(float horizontalFov, Camera camera) { }
+
+	// RVA: 0xDC407C Offset: 0xDC407C VA: 0xDC407C
+	public Vector3 CorrectViewSpacePosition(Vector3 position) { }
+
+	// RVA: 0xDC42B4 Offset: 0xDC42B4 VA: 0xDC42B4
+	private void OnBombExplosion(in EventBombExploded eventData) { }
+
+	// RVA: 0xDC42FC Offset: 0xDC42FC VA: 0xDC42FC
+	private void OnCharacterCreated(in EventCharacterCreated eventData) { }
+
+	// RVA: 0xDC45A8 Offset: 0xDC45A8 VA: 0xDC45A8
+	private void OnCharacterDestroyed(in EventCharacterDestroyed eventData) { }
+
+	// RVA: 0xDC46DC Offset: 0xDC46DC VA: 0xDC46DC
+	private void OnCharacterShootFirstPerson(in EventCharacterShootFirstPerson eventData) { }
+
+	// RVA: 0xDC4A70 Offset: 0xDC4A70 VA: 0xDC4A70
+	private void OnCharacterTakeDamage(in EventCharacterTakeDamage eventData) { }
+
+	// RVA: 0xDC4BD8 Offset: 0xDC4BD8 VA: 0xDC4BD8
+	private void OnRagdollCreated(in EventRagdollCreated eventData) { }
+
+	// RVA: 0xDC4D64 Offset: 0xDC4D64 VA: 0xDC4D64
+	private void OnTeamSelected(in EventTeamSelected eventData) { }
+
+	// RVA: 0xDC50C4 Offset: 0xDC50C4 VA: 0xDC50C4
+	private void OnVictoryStateEnter(in EventVictoryStateEnter eventData) { }
+
+	// RVA: 0xDC51D0 Offset: 0xDC51D0 VA: 0xDC51D0
+	private void OnVictoryStateExit(in EventVictoryStateExit eventData) { }
+
+	// RVA: 0xDC5284 Offset: 0xDC5284 VA: 0xDC5284
+	private void OnQueryFollowedCharacter(ref QueryFollowedCharacter queryData) { }
+
+	// RVA: 0xDC532C Offset: 0xDC532C VA: 0xDC532C Slot: 5
+	private void CFRenderLib.Unity.Interfaces.IRenderable.Render(IRenderer renderer, ref RenderableData data) { }
+
+	// RVA: 0xDC547C Offset: 0xDC547C VA: 0xDC547C Slot: 7
+	private void CFRenderLib.Unity.Interfaces.IRenderable.BecameInvisible(ref RenderableData data) { }
+
+	// RVA: 0xDC5480 Offset: 0xDC5480 VA: 0xDC5480 Slot: 6
+	private void CFRenderLib.Unity.Interfaces.IRenderable.BecameVisible(ref RenderableData data) { }
+
+	// RVA: 0xDC5484 Offset: 0xDC5484 VA: 0xDC5484 Slot: 4
+	private void CFRenderLib.Unity.Interfaces.IRenderable.PreCull(ref RenderableData data) { }
+}
