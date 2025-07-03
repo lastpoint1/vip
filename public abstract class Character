@@ -1,0 +1,460 @@
+// Namespace: CriticalOps.Gameplay
+public abstract class Character : MonoBehaviour, IGameplayPhysicsUpdate, IGameplayUpdate // TypeDefIndex: 3994
+{
+	// Fields
+	protected int m_ID; // 0xC
+	protected GameplayAssets m_assets; // 0x10
+	protected GameplayModule m_game; // 0x14
+	protected InputSystem m_inputSystem; // 0x18
+	protected GameSystem m_gameSystem; // 0x1C
+	protected static WeaponSettings m_weaponSettings; // 0x0
+	protected static CharacterSettings m_characterSettings; // 0x4
+	protected CapsuleCollider m_collider; // 0x20
+	protected Rigidbody m_rigidbody; // 0x24
+	protected Transform m_pivotX; // 0x28
+	protected Transform m_pivotY; // 0x2C
+	protected Transform m_aimPivot; // 0x30
+	protected Transform m_spine; // 0x34
+	protected Transform m_transform; // 0x38
+	protected CharacterBodyPart[] m_bodyParts; // 0x3C
+	protected CharacterModel m_model; // 0x40
+	protected BoundingSphere m_boundingSphere; // 0x44
+	protected Player m_player; // 0x48
+	protected CharacterData m_data; // 0x4C
+	protected ez7p00h0d<float> m_stepHeight; // 0x50
+	protected float m_crouchPhase; // 0x5C
+	private float m_lastSpotTime; // 0x60
+	protected long m_invulnerabilityTime; // 0x68
+	protected int m_health; // 0x70
+	protected EGID m_selectedWeapon; // 0x78
+	protected EGID m_quickSwitchWeapon; // 0x80
+	protected bool m_initialized; // 0x88
+	protected List<EGID> m_weapons; // 0x8C
+	protected CharacterArmors m_characterArmors; // 0x90
+	public ez7p00h0d<bool> Spotted; // 0x94
+	public ez7p00h0d<bool> InSmoke; // 0xA0
+	public ez7p00h0d<bool> Flashed; // 0xAC
+	public ez7p00h0d<float> FlashedTime; // 0xB8
+	public ez7p00h0d<float> FlashedTotalTime; // 0xC4
+	[CompilerGenerated]
+	private int <SkinAssetId>k__BackingField; // 0xD0
+	[CompilerGenerated]
+	private float <Speed>k__BackingField; // 0xD4
+	[CompilerGenerated]
+	private float <RelativeSpeed>k__BackingField; // 0xD8
+	[CompilerGenerated]
+	private MaterialDef <GroundMaterial>k__BackingField; // 0xDC
+	[CompilerGenerated]
+	private bool <HasGroundMaterial>k__BackingField; // 0xE0
+	[CompilerGenerated]
+	private float <RunPhase>k__BackingField; // 0xE4
+	[CompilerGenerated]
+	private float <DynamicSpread>k__BackingField; // 0xE8
+
+	// Methods
+
+	// RVA: 0x1A1A9E0 Offset: 0x1A1A9E0 VA: 0x1A1A9E0
+	public int get_ID() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1A9E8 Offset: 0x1A1A9E8 VA: 0x1A1A9E8
+	public int get_SkinAssetId() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1A9F0 Offset: 0x1A1A9F0 VA: 0x1A1A9F0
+	private void set_SkinAssetId(int value) { }
+
+	// RVA: 0x1A1A9F8 Offset: 0x1A1A9F8 VA: 0x1A1A9F8
+	public EGID get_SelectedWeapon() { }
+
+	// RVA: 0x1A1AA04 Offset: 0x1A1AA04 VA: 0x1A1AA04
+	public EGID get_QuickSwitchWeapon() { }
+
+	// RVA: 0x1A1AA10 Offset: 0x1A1AA10 VA: 0x1A1AA10
+	public Transform get_PivotY() { }
+
+	// RVA: 0x1A1AA18 Offset: 0x1A1AA18 VA: 0x1A1AA18
+	public Transform get_PivotX() { }
+
+	// RVA: 0x1A1AA20 Offset: 0x1A1AA20 VA: 0x1A1AA20
+	public Transform get_AimPivot() { }
+
+	// RVA: 0x1A1AA28 Offset: 0x1A1AA28 VA: 0x1A1AA28
+	public CharacterData get_Data() { }
+
+	// RVA: 0x1A1AA30 Offset: 0x1A1AA30 VA: 0x1A1AA30
+	public Vector3 get_Position() { }
+
+	// RVA: 0x1A1AA5C Offset: 0x1A1AA5C VA: 0x1A1AA5C
+	public Vector2 get_Rotation() { }
+
+	// RVA: 0x1A1AA84 Offset: 0x1A1AA84 VA: 0x1A1AA84 Slot: 6
+	public virtual Vector3 get_Velocity() { }
+
+	// RVA: 0x1A1AAB0 Offset: 0x1A1AAB0 VA: 0x1A1AAB0
+	public Vector3 get_HorizontalVelocity() { }
+
+	// RVA: 0x1A1AB0C Offset: 0x1A1AB0C VA: 0x1A1AB0C
+	public Vector3 get_VerticalVelocity() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1AB44 Offset: 0x1A1AB44 VA: 0x1A1AB44
+	public float get_Speed() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1AB4C Offset: 0x1A1AB4C VA: 0x1A1AB4C
+	private void set_Speed(float value) { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1AB54 Offset: 0x1A1AB54 VA: 0x1A1AB54
+	public float get_RelativeSpeed() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1AB5C Offset: 0x1A1AB5C VA: 0x1A1AB5C
+	private void set_RelativeSpeed(float value) { }
+
+	// RVA: 0x1A1AB64 Offset: 0x1A1AB64 VA: 0x1A1AB64
+	public bool get_IsInitialized() { }
+
+	// RVA: 0x1A1AB6C Offset: 0x1A1AB6C VA: 0x1A1AB6C
+	public bool get_IsDead() { }
+
+	// RVA: 0x1A1AB80 Offset: 0x1A1AB80 VA: 0x1A1AB80
+	public bool get_IsCrouched() { }
+
+	// RVA: 0x1A1ABA4 Offset: 0x1A1ABA4 VA: 0x1A1ABA4
+	public bool get_IsWalking() { }
+
+	// RVA: 0x1A1ABC8 Offset: 0x1A1ABC8 VA: 0x1A1ABC8
+	public bool get_IsOnGround() { }
+
+	// RVA: 0x1A1ABEC Offset: 0x1A1ABEC VA: 0x1A1ABEC
+	public bool get_IsAiming() { }
+
+	// RVA: 0x1A1AC10 Offset: 0x1A1AC10 VA: 0x1A1AC10
+	public bool get_ResetState() { }
+
+	// RVA: 0x1A1AC34 Offset: 0x1A1AC34 VA: 0x1A1AC34
+	public float get_Spread() { }
+
+	// RVA: 0x1A1AC58 Offset: 0x1A1AC58 VA: 0x1A1AC58
+	public float get_RecoilX() { }
+
+	// RVA: 0x1A1AC7C Offset: 0x1A1AC7C VA: 0x1A1AC7C
+	public float get_RecoilY() { }
+
+	// RVA: 0x1A1ACA0 Offset: 0x1A1ACA0 VA: 0x1A1ACA0
+	public float get_CrouchPhase() { }
+
+	// RVA: 0x1A1ACA8 Offset: 0x1A1ACA8 VA: 0x1A1ACA8
+	public CharacterBodyPart[] get_BodyParts() { }
+
+	// RVA: 0x1A1ACB0 Offset: 0x1A1ACB0 VA: 0x1A1ACB0
+	public List<EGID> get_Weapons() { }
+
+	// RVA: 0x1A1ACB8 Offset: 0x1A1ACB8 VA: 0x1A1ACB8
+	public IEnumerable<Armor> get_Armors() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1ACDC Offset: 0x1A1ACDC VA: 0x1A1ACDC
+	public MaterialDef get_GroundMaterial() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1ACE4 Offset: 0x1A1ACE4 VA: 0x1A1ACE4
+	private void set_GroundMaterial(MaterialDef value) { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1ACEC Offset: 0x1A1ACEC VA: 0x1A1ACEC
+	public bool get_HasGroundMaterial() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1ACF4 Offset: 0x1A1ACF4 VA: 0x1A1ACF4
+	private void set_HasGroundMaterial(bool value) { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1ACFC Offset: 0x1A1ACFC VA: 0x1A1ACFC
+	public float get_RunPhase() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1AD04 Offset: 0x1A1AD04 VA: 0x1A1AD04
+	private void set_RunPhase(float value) { }
+
+	// RVA: 0x1A1AD0C Offset: 0x1A1AD0C VA: 0x1A1AD0C
+	public CapsuleCollider get_Collider() { }
+
+	// RVA: 0x1A1AD14 Offset: 0x1A1AD14 VA: 0x1A1AD14
+	public BoundingSphere get_BoundingSphere() { }
+
+	// RVA: 0x1A1AD1C Offset: 0x1A1AD1C VA: 0x1A1AD1C
+	public Player get_Player() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1AD24 Offset: 0x1A1AD24 VA: 0x1A1AD24
+	public float get_DynamicSpread() { }
+
+	[CompilerGenerated]
+	// RVA: 0x1A1AD2C Offset: 0x1A1AD2C VA: 0x1A1AD2C
+	private void set_DynamicSpread(float value) { }
+
+	// RVA: 0x1A1AD34 Offset: 0x1A1AD34 VA: 0x1A1AD34
+	public int get_Health() { }
+
+	// RVA: 0x1A1AD3C Offset: 0x1A1AD3C VA: 0x1A1AD3C
+	public void set_Health(int value) { }
+
+	// RVA: 0x1A1AD44 Offset: 0x1A1AD44 VA: 0x1A1AD44
+	public long get_InvulnerabilityTimeLeft() { }
+
+	// RVA: 0x1A1AD60 Offset: 0x1A1AD60 VA: 0x1A1AD60
+	public long get_InvulnerabilityTime() { }
+
+	// RVA: 0x1A1AD68 Offset: 0x1A1AD68 VA: 0x1A1AD68
+	public void set_InvulnerabilityTime(long value) { }
+
+	// RVA: 0x1A1AD78 Offset: 0x1A1AD78 VA: 0x1A1AD78
+	public CharacterModel get_Model() { }
+
+	// RVA: 0x1A1AD80 Offset: 0x1A1AD80 VA: 0x1A1AD80
+	public void set_Model(CharacterModel value) { }
+
+	// RVA: 0x1A1AD88 Offset: 0x1A1AD88 VA: 0x1A1AD88
+	public Transform get_Spine() { }
+
+	// RVA: 0x1A1AD90 Offset: 0x1A1AD90 VA: 0x1A1AD90
+	public void set_Spine(Transform value) { }
+
+	// RVA: 0x1A1AD98 Offset: 0x1A1AD98 VA: 0x1A1AD98
+	public CharacterBodyPart GetBodyPart(BodyPart bodyPart) { }
+
+	// RVA: 0x1A1ADCC Offset: 0x1A1ADCC VA: 0x1A1ADCC
+	public void Init(GameplayAssets assets, GameplayModule game, InputSystem inputSystem, GameSystem gameSystem, Player player, int id, int skinAssetId, Vector3 position, Quaternion rotation) { }
+
+	// RVA: 0x1A1B724 Offset: 0x1A1B724 VA: 0x1A1B724
+	public float GetCurrentMaxSpeed() { }
+
+	// RVA: 0x1A1B814 Offset: 0x1A1B814 VA: 0x1A1B814
+	public void Die() { }
+
+	// RVA: 0x1A1BA3C Offset: 0x1A1BA3C VA: 0x1A1BA3C Slot: 7
+	public virtual void SetPosition(Vector3 position) { }
+
+	// RVA: 0x1A1BAA4 Offset: 0x1A1BAA4 VA: 0x1A1BAA4
+	public void SetVelocity(Vector3 velocity) { }
+
+	// RVA: 0x1A1BAD4 Offset: 0x1A1BAD4 VA: 0x1A1BAD4
+	public void SetRotation(Vector2 rotation) { }
+
+	// RVA: 0x1A1B6B4 Offset: 0x1A1B6B4 VA: 0x1A1B6B4
+	public void SetRotation(Quaternion rotation) { }
+
+	// RVA: 0x1A1BBA4 Offset: 0x1A1BBA4 VA: 0x1A1BBA4
+	public EGID GetWeaponByID(int liveWeaponID) { }
+
+	// RVA: 0x1A1BE94 Offset: 0x1A1BE94 VA: 0x1A1BE94
+	public WeaponInstance GiveWeapon(EGID instanceEgid) { }
+
+	// RVA: 0x1A1C4B4 Offset: 0x1A1C4B4 VA: 0x1A1C4B4
+	public void RemoveWeapon(EGID weapon) { }
+
+	// RVA: 0x1A1C928 Offset: 0x1A1C928 VA: 0x1A1C928
+	public bool HasWeaponInSlot(WeaponSlot slot, int skipThisWeaponID = -1) { }
+
+	// RVA: 0x1A1CC9C Offset: 0x1A1CC9C VA: 0x1A1CC9C
+	public EGID GetWeaponInSlot(WeaponSlot slot) { }
+
+	// RVA: 0x1A1D084 Offset: 0x1A1D084 VA: 0x1A1D084
+	public bool HasWeapon(WeaponDef def) { }
+
+	// RVA: 0x1A1D3C0 Offset: 0x1A1D3C0 VA: 0x1A1D3C0
+	public void SetResetState(CharacterUpdateData data, bool onlyState) { }
+
+	// RVA: 0x1A1D540 Offset: 0x1A1D540 VA: 0x1A1D540
+	public void AddBodyPart(CharacterBodyPart part) { }
+
+	// RVA: 0x1A1D660 Offset: 0x1A1D660 VA: 0x1A1D660
+	public void RemoveFromBodyParts(CharacterBodyPart part) { }
+
+	// RVA: 0x1A1D760 Offset: 0x1A1D760 VA: 0x1A1D760
+	public void GetSpottedStatus(out Character.GetSpottedStatusResult spotted) { }
+
+	// RVA: 0x1A1D79C Offset: 0x1A1D79C VA: 0x1A1D79C
+	public bool Raycast(Ray ray, ref float sqrMaxDistance, bool bodypartAccuracy = True) { }
+
+	// RVA: 0x1A1D9E4 Offset: 0x1A1D9E4 VA: 0x1A1D9E4
+	public bool Spot() { }
+
+	// RVA: 0x1A1DA2C Offset: 0x1A1DA2C VA: 0x1A1DA2C
+	public void Destroy() { }
+
+	// RVA: -1 Offset: -1 Slot: 8
+	protected abstract void CharacterInit();
+
+	// RVA: -1 Offset: -1 Slot: 9
+	protected abstract void CharacterReset(CharacterUpdateData data);
+
+	// RVA: -1 Offset: -1 Slot: 10
+	protected abstract void CharacterUpdate(float deltaTime);
+
+	// RVA: -1 Offset: -1 Slot: 11
+	protected abstract void CharacterFixedUpdate(float deltaTime);
+
+	// RVA: -1 Offset: -1 Slot: 12
+	protected abstract void CharacterDryFire();
+
+	// RVA: -1 Offset: -1 Slot: 13
+	protected abstract void CharacterFire(ShootData shootData, IWeaponDefComponent weaponDef, IWeaponLogicComponent weaponLogic);
+
+	// RVA: -1 Offset: -1 Slot: 14
+	protected abstract void CharacterDie();
+
+	// RVA: -1 Offset: -1 Slot: 15
+	protected abstract void CharacterDestroy();
+
+	// RVA: -1 Offset: -1 Slot: 16
+	protected abstract void CharacterWeaponRemoved(EGID weapon);
+
+	// RVA: -1 Offset: -1 Slot: 17
+	protected abstract void CharacterEquipmentCleared();
+
+	// RVA: 0x1A1DD0C Offset: 0x1A1DD0C VA: 0x1A1DD0C
+	public void SetAiming(bool aiming) { }
+
+	// RVA: 0x1A1B3EC Offset: 0x1A1B3EC VA: 0x1A1B3EC
+	public void SetCrouched(bool crouched) { }
+
+	// RVA: 0x1A1E054 Offset: 0x1A1E054 VA: 0x1A1E054 Slot: 18
+	public virtual void SelectWeapon(WeaponInstance weapon, bool localChangeOnly = False) { }
+
+	// RVA: 0x1A1F4D0 Offset: 0x1A1F4D0 VA: 0x1A1F4D0 Slot: 19
+	public virtual void SetQuickWeapon(EGID weapon) { }
+
+	// RVA: 0x1A1F708 Offset: 0x1A1F708 VA: 0x1A1F708
+	public void DryFire(bool isDualWielded, IWeaponDefComponent weaponDef, IWeaponLogicComponent weaponLogic) { }
+
+	// RVA: 0x1A1F834 Offset: 0x1A1F834 VA: 0x1A1F834
+	public void Fire(bool isDualWielded, IWeaponDefComponent weaponDef, IWeaponLogicComponent weaponLogic, ShootData shootData) { }
+
+	// RVA: 0x1A1F960 Offset: 0x1A1F960 VA: 0x1A1F960
+	public List<int> GetWeaponDefIDs() { }
+
+	// RVA: 0x1A1FCF8 Offset: 0x1A1FCF8 VA: 0x1A1FCF8 Slot: 4
+	public void Gameplay_PhysicsUpdate(float deltaTime) { }
+
+	// RVA: 0x1A1FD24 Offset: 0x1A1FD24 VA: 0x1A1FD24 Slot: 5
+	public void Gameplay_Update(float deltaTime) { }
+
+	// RVA: 0x1A201F0 Offset: 0x1A201F0 VA: 0x1A201F0
+	public void UpdateWeapon(float deltaTime) { }
+
+	// RVA: 0x1A2064C Offset: 0x1A2064C VA: 0x1A2064C
+	public void AddArmor(Armor armor) { }
+
+	// RVA: 0x1A20678 Offset: 0x1A20678 VA: 0x1A20678
+	public void RemoveArmor(int armorId) { }
+
+	// RVA: 0x1A206A4 Offset: 0x1A206A4 VA: 0x1A206A4
+	public void RemoveArmor(Armor armor) { }
+
+	// RVA: 0x1A206D0 Offset: 0x1A206D0 VA: 0x1A206D0
+	public int GetTotalArmorAmount() { }
+
+	// RVA: 0x1A206F4 Offset: 0x1A206F4 VA: 0x1A206F4
+	public bool HasArmor(int armorId) { }
+
+	// RVA: 0x1A20720 Offset: 0x1A20720 VA: 0x1A20720
+	public Armor GetArmor(int armorId) { }
+
+	// RVA: 0x1A2074C Offset: 0x1A2074C VA: 0x1A2074C
+	public bool TryGetArmor(ArmorSlot slot, out Armor result) { }
+
+	// RVA: 0x1A20780 Offset: 0x1A20780 VA: 0x1A20780
+	public bool TryGetArmor(BodyPart bodyPart, out Armor result) { }
+
+	// RVA: 0x1A207B4 Offset: 0x1A207B4 VA: 0x1A207B4
+	public bool HasBodyPartCoverage(BodyPart bodyPart) { }
+
+	// RVA: 0x1A207E0 Offset: 0x1A207E0 VA: 0x1A207E0
+	public void CalculateArmorDamage(int damage, ArmorPenetration armorPenetration, BodyPart hitBodyPart, out int damageLeft, out int hitArmorId, out int armorDamage) { }
+
+	// RVA: 0x1A20840 Offset: 0x1A20840 VA: 0x1A20840
+	protected void UpdateCrouching() { }
+
+	// RVA: 0x1A209F0 Offset: 0x1A209F0 VA: 0x1A209F0
+	protected void UpdateColliderCenter() { }
+
+	// RVA: 0x1A1B434 Offset: 0x1A1B434 VA: 0x1A1B434
+	private void UpdateColliderHeight() { }
+
+	// RVA: 0x1A1B59C Offset: 0x1A1B59C VA: 0x1A1B59C
+	private void UpdatePivotPosition(float height) { }
+
+	// RVA: 0x1A1FF18 Offset: 0x1A1FF18 VA: 0x1A1FF18
+	private void UpdateRunPhase() { }
+
+	// RVA: 0x1A20B7C Offset: 0x1A20B7C VA: 0x1A20B7C
+	protected void UpdateGroundMaterial(Collider c) { }
+
+	// RVA: 0x1A1FD6C Offset: 0x1A1FD6C VA: 0x1A1FD6C
+	private void UpdateFlashedTime() { }
+
+	// RVA: 0x1A1E5E4 Offset: 0x1A1E5E4 VA: 0x1A1E5E4
+	public static void BuildWeaponAnimationComposition(int playerId, int fpaocId, int audioDefId, List<EquippedItemData> animationOverrideClips) { }
+
+	// RVA: 0x1A20C38 Offset: 0x1A20C38 VA: 0x1A20C38
+	protected void .ctor() { }
+}
+
+// Namespace: CriticalOps.Gameplay
+public class CharacterArmors // TypeDefIndex: 3995
+{
+	// Fields
+	private readonly List<Armor> m_armors; // 0x8
+	private readonly CharacterData m_characterData; // 0xC
+
+	// Methods
+
+	// RVA: 0x191042C Offset: 0x191042C VA: 0x191042C
+	public IEnumerable<Armor> get_Armors() { }
+
+	// RVA: 0x1910434 Offset: 0x1910434 VA: 0x1910434
+	public void .ctor(CharacterData characterData) { }
+
+	// RVA: 0x19104EC Offset: 0x19104EC VA: 0x19104EC
+	public void Destroy() { }
+
+	// RVA: 0x1910674 Offset: 0x1910674 VA: 0x1910674
+	public void AddArmor(Armor armor) { }
+
+	// RVA: 0x1910744 Offset: 0x1910744 VA: 0x1910744
+	public void RemoveArmor(int armorId) { }
+
+	// RVA: 0x1910600 Offset: 0x1910600 VA: 0x1910600
+	public void RemoveArmor(Armor armor) { }
+
+	// RVA: 0x19109FC Offset: 0x19109FC VA: 0x19109FC
+	public int GetTotalArmorAmount() { }
+
+	// RVA: 0x1910B98 Offset: 0x1910B98 VA: 0x1910B98
+	public bool HasArmor(int armorId) { }
+
+	// RVA: 0x19107BC Offset: 0x19107BC VA: 0x19107BC
+	public Armor GetArmor(int armorId) { }
+
+	// RVA: 0x1910D60 Offset: 0x1910D60 VA: 0x1910D60
+	public bool TryGetArmor(ArmorSlot slot, out Armor result) { }
+
+	// RVA: 0x1910F58 Offset: 0x1910F58 VA: 0x1910F58
+	public bool TryGetArmor(BodyPart bodyPart, out Armor result) { }
+
+	// RVA: 0x1911154 Offset: 0x1911154 VA: 0x1911154
+	public bool HasBodyPartCoverage(BodyPart bodyPart) { }
+
+	// RVA: 0x1911340 Offset: 0x1911340 VA: 0x1911340
+	public void CalculateArmorDamage(int damage, ArmorPenetration armorPenetration, BodyPart hitBodyPart, out int damageLeft, out int hitArmorId, out int armorDamage) { }
+
+	// RVA: 0x1910740 Offset: 0x1910740 VA: 0x1910740
+	private void OnArmorUpdated() { }
+
+	// RVA: 0x1911564 Offset: 0x1911564 VA: 0x1911564
+	private void UpdateArmorMoveSpeedReductionRates() { }
+}
