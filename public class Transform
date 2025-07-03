@@ -1,0 +1,242 @@
+// Namespace: UnityEngine
+[RequiredByNativeCode]
+[NativeHeader("Runtime/Transform/ScriptBindings/TransformScriptBindings.h")]
+[NativeHeader("Configuration/UnityConfigure.h")]
+[NativeHeader("Runtime/Transform/Transform.h")]
+public class Transform : Component, IEnumerable // TypeDefIndex: 9425
+{
+	// Methods
+
+	// RVA: 0x19D14A0 Offset: 0x19D14A0 VA: 0x19D14A0
+	protected void .ctor() { }
+
+	// RVA: 0x19D1508 Offset: 0x19D1508 VA: 0x19D1508
+	public Vector3 get_position() { }
+
+	// RVA: 0x19D15D8 Offset: 0x19D15D8 VA: 0x19D15D8
+	public void set_position(Vector3 value) { }
+
+	// RVA: 0x19D1688 Offset: 0x19D1688 VA: 0x19D1688
+	public Vector3 get_localPosition() { }
+
+	// RVA: 0x19D1758 Offset: 0x19D1758 VA: 0x19D1758
+	public void set_localPosition(Vector3 value) { }
+
+	// RVA: 0x19D1808 Offset: 0x19D1808 VA: 0x19D1808
+	public Vector3 get_eulerAngles() { }
+
+	// RVA: 0x19D1A08 Offset: 0x19D1A08 VA: 0x19D1A08
+	public Vector3 get_localEulerAngles() { }
+
+	// RVA: 0x19D1C08 Offset: 0x19D1C08 VA: 0x19D1C08
+	public void set_localEulerAngles(Vector3 value) { }
+
+	// RVA: 0x19D1D50 Offset: 0x19D1D50 VA: 0x19D1D50
+	public Vector3 get_right() { }
+
+	// RVA: 0x19D1EB4 Offset: 0x19D1EB4 VA: 0x19D1EB4
+	public Vector3 get_up() { }
+
+	// RVA: 0x19D2018 Offset: 0x19D2018 VA: 0x19D2018
+	public Vector3 get_forward() { }
+
+	// RVA: 0x19D1998 Offset: 0x19D1998 VA: 0x19D1998
+	public Quaternion get_rotation() { }
+
+	// RVA: 0x19D21D0 Offset: 0x19D21D0 VA: 0x19D21D0
+	public void set_rotation(Quaternion value) { }
+
+	// RVA: 0x19D1B98 Offset: 0x19D1B98 VA: 0x19D1B98
+	public Quaternion get_localRotation() { }
+
+	// RVA: 0x19D1CEC Offset: 0x19D1CEC VA: 0x19D1CEC
+	public void set_localRotation(Quaternion value) { }
+
+	// RVA: 0x19D2330 Offset: 0x19D2330 VA: 0x19D2330
+	public Vector3 get_localScale() { }
+
+	// RVA: 0x19D2400 Offset: 0x19D2400 VA: 0x19D2400
+	public void set_localScale(Vector3 value) { }
+
+	// RVA: 0x19D24B0 Offset: 0x19D24B0 VA: 0x19D24B0
+	public Transform get_parent() { }
+
+	// RVA: 0x19D2548 Offset: 0x19D2548 VA: 0x19D2548
+	public void set_parent(Transform value) { }
+
+	// RVA: 0x19D24FC Offset: 0x19D24FC VA: 0x19D24FC
+	internal Transform get_parentInternal() { }
+
+	// RVA: 0x19D2650 Offset: 0x19D2650 VA: 0x19D2650
+	internal void set_parentInternal(Transform value) { }
+
+	// RVA: 0x19D26A8 Offset: 0x19D26A8 VA: 0x19D26A8
+	private Transform GetParent() { }
+
+	// RVA: 0x19D26F4 Offset: 0x19D26F4 VA: 0x19D26F4
+	public void SetParent(Transform p) { }
+
+	[FreeFunction("SetParent", HasExplicitThis = True)]
+	// RVA: 0x19D274C Offset: 0x19D274C VA: 0x19D274C
+	public void SetParent(Transform parent, bool worldPositionStays) { }
+
+	// RVA: 0x19D27A8 Offset: 0x19D27A8 VA: 0x19D27A8
+	public Matrix4x4 get_worldToLocalMatrix() { }
+
+	// RVA: 0x19D28A8 Offset: 0x19D28A8 VA: 0x19D28A8
+	public Matrix4x4 get_localToWorldMatrix() { }
+
+	// RVA: 0x19D29A8 Offset: 0x19D29A8 VA: 0x19D29A8
+	public void SetPositionAndRotation(Vector3 position, Quaternion rotation) { }
+
+	// RVA: 0x19D2A88 Offset: 0x19D2A88 VA: 0x19D2A88
+	public void Translate(Vector3 translation, Space relativeTo) { }
+
+	// RVA: 0x19D2CFC Offset: 0x19D2CFC VA: 0x19D2CFC
+	public void Translate(float x, float y, float z) { }
+
+	// RVA: 0x19D2D18 Offset: 0x19D2D18 VA: 0x19D2D18
+	public void Rotate(Vector3 eulers, Space relativeTo) { }
+
+	// RVA: 0x19D3184 Offset: 0x19D3184 VA: 0x19D3184
+	public void Rotate(Vector3 eulers) { }
+
+	// RVA: 0x19D31A0 Offset: 0x19D31A0 VA: 0x19D31A0
+	public void Rotate(float xAngle, float yAngle, float zAngle) { }
+
+	[NativeMethod("RotateAround")]
+	// RVA: 0x19D31BC Offset: 0x19D31BC VA: 0x19D31BC
+	internal void RotateAroundInternal(Vector3 axis, float angle) { }
+
+	// RVA: 0x19D3284 Offset: 0x19D3284 VA: 0x19D3284
+	public void Rotate(Vector3 axis, float angle, Space relativeTo) { }
+
+	// RVA: 0x19D33E8 Offset: 0x19D33E8 VA: 0x19D33E8
+	public void Rotate(Vector3 axis, float angle) { }
+
+	// RVA: 0x19D2C6C Offset: 0x19D2C6C VA: 0x19D2C6C
+	public Vector3 TransformDirection(Vector3 direction) { }
+
+	// RVA: 0x19D3464 Offset: 0x19D3464 VA: 0x19D3464
+	public Vector3 TransformDirection(float x, float y, float z) { }
+
+	// RVA: 0x19D3504 Offset: 0x19D3504 VA: 0x19D3504
+	public Vector3 TransformVector(Vector3 vector) { }
+
+	// RVA: 0x19D35F0 Offset: 0x19D35F0 VA: 0x19D35F0
+	public Vector3 TransformVector(float x, float y, float z) { }
+
+	// RVA: 0x19D3690 Offset: 0x19D3690 VA: 0x19D3690
+	public Vector3 InverseTransformVector(Vector3 vector) { }
+
+	// RVA: 0x19D377C Offset: 0x19D377C VA: 0x19D377C
+	public Vector3 TransformPoint(Vector3 position) { }
+
+	// RVA: 0x19D3868 Offset: 0x19D3868 VA: 0x19D3868
+	public Vector3 InverseTransformPoint(Vector3 position) { }
+
+	// RVA: 0x19D3954 Offset: 0x19D3954 VA: 0x19D3954
+	public Transform get_root() { }
+
+	// RVA: 0x19D39A0 Offset: 0x19D39A0 VA: 0x19D39A0
+	private Transform GetRoot() { }
+
+	[NativeMethod("GetChildrenCount")]
+	// RVA: 0x19D39EC Offset: 0x19D39EC VA: 0x19D39EC
+	public int get_childCount() { }
+
+	// RVA: 0x19D3A38 Offset: 0x19D3A38 VA: 0x19D3A38
+	public void SetAsFirstSibling() { }
+
+	// RVA: 0x19D3A84 Offset: 0x19D3A84 VA: 0x19D3A84
+	public void SetAsLastSibling() { }
+
+	// RVA: 0x19D3AD0 Offset: 0x19D3AD0 VA: 0x19D3AD0
+	public void SetSiblingIndex(int index) { }
+
+	// RVA: 0x19D3B24 Offset: 0x19D3B24 VA: 0x19D3B24
+	public int GetSiblingIndex() { }
+
+	[FreeFunction]
+	// RVA: 0x19D3B70 Offset: 0x19D3B70 VA: 0x19D3B70
+	private static Transform FindRelativeTransformWithPath(Transform transform, string path, bool isActiveOnly) { }
+
+	// RVA: 0x19D3BCC Offset: 0x19D3BCC VA: 0x19D3BCC
+	public Transform Find(string n) { }
+
+	[NativeMethod("GetWorldScaleLossy")]
+	// RVA: 0x19D3C88 Offset: 0x19D3C88 VA: 0x19D3C88
+	public Vector3 get_lossyScale() { }
+
+	[FreeFunction("Internal_IsChildOrSameTransform", HasExplicitThis = True)]
+	// RVA: 0x19D3D58 Offset: 0x19D3D58 VA: 0x19D3D58
+	public bool IsChildOf(Transform parent) { }
+
+	// RVA: 0x19D3DAC Offset: 0x19D3DAC VA: 0x19D3DAC Slot: 4
+	public IEnumerator GetEnumerator() { }
+
+	[FreeFunction("GetChild", HasExplicitThis = True)]
+	[NativeThrows]
+	// RVA: 0x19D3E68 Offset: 0x19D3E68 VA: 0x19D3E68
+	public Transform GetChild(int index) { }
+
+	// RVA: 0x19D1584 Offset: 0x19D1584 VA: 0x19D1584
+	private void get_position_Injected(out Vector3 ret) { }
+
+	// RVA: 0x19D1634 Offset: 0x19D1634 VA: 0x19D1634
+	private void set_position_Injected(ref Vector3 value) { }
+
+	// RVA: 0x19D1704 Offset: 0x19D1704 VA: 0x19D1704
+	private void get_localPosition_Injected(out Vector3 ret) { }
+
+	// RVA: 0x19D17B4 Offset: 0x19D17B4 VA: 0x19D17B4
+	private void set_localPosition_Injected(ref Vector3 value) { }
+
+	// RVA: 0x19D217C Offset: 0x19D217C VA: 0x19D217C
+	private void get_rotation_Injected(out Quaternion ret) { }
+
+	// RVA: 0x19D2234 Offset: 0x19D2234 VA: 0x19D2234
+	private void set_rotation_Injected(ref Quaternion value) { }
+
+	// RVA: 0x19D2288 Offset: 0x19D2288 VA: 0x19D2288
+	private void get_localRotation_Injected(out Quaternion ret) { }
+
+	// RVA: 0x19D22DC Offset: 0x19D22DC VA: 0x19D22DC
+	private void set_localRotation_Injected(ref Quaternion value) { }
+
+	// RVA: 0x19D23AC Offset: 0x19D23AC VA: 0x19D23AC
+	private void get_localScale_Injected(out Vector3 ret) { }
+
+	// RVA: 0x19D245C Offset: 0x19D245C VA: 0x19D245C
+	private void set_localScale_Injected(ref Vector3 value) { }
+
+	// RVA: 0x19D2854 Offset: 0x19D2854 VA: 0x19D2854
+	private void get_worldToLocalMatrix_Injected(out Matrix4x4 ret) { }
+
+	// RVA: 0x19D2954 Offset: 0x19D2954 VA: 0x19D2954
+	private void get_localToWorldMatrix_Injected(out Matrix4x4 ret) { }
+
+	// RVA: 0x19D2A2C Offset: 0x19D2A2C VA: 0x19D2A2C
+	private void SetPositionAndRotation_Injected(ref Vector3 position, ref Quaternion rotation) { }
+
+	// RVA: 0x19D3228 Offset: 0x19D3228 VA: 0x19D3228
+	private void RotateAroundInternal_Injected(ref Vector3 axis, float angle) { }
+
+	// RVA: 0x19D3408 Offset: 0x19D3408 VA: 0x19D3408
+	private void TransformDirection_Injected(ref Vector3 direction, out Vector3 ret) { }
+
+	// RVA: 0x19D3594 Offset: 0x19D3594 VA: 0x19D3594
+	private void TransformVector_Injected(ref Vector3 vector, out Vector3 ret) { }
+
+	// RVA: 0x19D3720 Offset: 0x19D3720 VA: 0x19D3720
+	private void InverseTransformVector_Injected(ref Vector3 vector, out Vector3 ret) { }
+
+	// RVA: 0x19D380C Offset: 0x19D380C VA: 0x19D380C
+	private void TransformPoint_Injected(ref Vector3 position, out Vector3 ret) { }
+
+	// RVA: 0x19D38F8 Offset: 0x19D38F8 VA: 0x19D38F8
+	private void InverseTransformPoint_Injected(ref Vector3 position, out Vector3 ret) { }
+
+	// RVA: 0x19D3D04 Offset: 0x19D3D04 VA: 0x19D3D04
+	private void get_lossyScale_Injected(out Vector3 ret) { }
+}
